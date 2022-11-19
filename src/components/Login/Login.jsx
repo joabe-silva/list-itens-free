@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import './Login.css';
 
 export const Login = () => (
     <div className="container mt-5">
-        <div className="card" style={{ width: '18rem' }}>
+        <div className="card" style={{ width: '20rem' }}>
             <div className="card-body">
                 <h2 className="mb-3">Login</h2>
                 <div className="mb-3">
@@ -14,7 +15,7 @@ export const Login = () => (
                     <input type="password" className="form-control" id="senha" placeholder="xxxx" />
                 </div>
                 <button className="btn btn-primary me-2">Entrar</button>
-                <button className="btn btn-secondary">Cadastro</button>
+                <Link to="/cadastro" className="btn btn-secondary">Cadastro</Link>
             </div>
         </div>
     </div>
