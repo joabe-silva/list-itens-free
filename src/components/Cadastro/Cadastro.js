@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
+import { Link } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../services/firabase-config";
-import { Link } from "react-router-dom";
 import './Cadastro.css';
 
 export const Cadastro = () => {
@@ -39,9 +39,13 @@ export const Cadastro = () => {
                 createUserWithEmailAndPassword(auth, email, senha)
                 .then((userCredential) => {
                     // Signed in 
-                    const user = userCredential.user;
-                    // ...
-                    console.log(user)
+                    const { accessToken, uid, email } = userCredential.user;
+
+                    sessionStorage.setItem("@AuthFirebase:token", accessToken)
+                    sessionStorage.setItem("@AuthFirebase:userId", uid)
+                    sessionStorage.setItem("@AuthFirebase:userEmail", email)
+
+                    window.location.replace("/my-lists")
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -54,7 +58,7 @@ export const Cadastro = () => {
         } else {
             setError('Preencha todos os campos!')
         }
-
+        
     }
 
     return(
