@@ -17,7 +17,7 @@ export const MyLists = () => {
     }, []);
     
     return(
-        <div className="container mt-5">
+        <div className="container-fluid mt-5">
             <ul className="list-group">
             {
                 list.map(l => (

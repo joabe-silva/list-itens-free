@@ -7,7 +7,7 @@ import { Header } from './components/Header/Header';
 
 const RoutesApi = () => (
     <BrowserRouter>
-        {window.location.pathname === "/" ? null : <Header />}
+        { window.location.pathname === "/" ? null : <Header /> }
         <Routes>
             <Route path='/' element={ <Login /> } />
             <Route path='*' element={<h1>Not Found</h1>} />
