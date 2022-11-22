@@ -7,12 +7,12 @@ import { Header } from './components/Header/Header';
 
 const RoutesApi = () => (
     <BrowserRouter>
-        <Header/>
+        {window.location.pathname === "/" ? null : <Header />}
         <Routes>
-            <Route path='/' element={ <Login/> } />
+            <Route path='/' element={ <Login /> } />
             <Route path='*' element={<h1>Not Found</h1>} />
-            <Route path='/cadastro' element={ <Cadastro/> } />
-            <Route path='/my-list' element={ <MyLists/> } />
+            <Route path='/cadastro' element={ <Cadastro /> } />
+            <Route path='/my-list' element={ <MyLists /> } />
         </Routes>
     </BrowserRouter>
 );
