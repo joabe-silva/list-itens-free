@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { app } from "../../services/firabase-config";
 
-export const MyLists = () => {
+export const Lista = () => {
 
     const [list, setList] = useState([]);
 
