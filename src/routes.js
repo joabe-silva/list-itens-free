@@ -12,7 +12,7 @@ const RoutesApi = () => (
             <Route path='/' element={ <Login /> } />
             <Route path='*' element={<h1>Not Found</h1>} />
             <Route path='/cadastro' element={ <Cadastro /> } />
-            <Route path='/my-list' element={ <Lista /> } />
+            <Route path='/lista' element={ <Lista /> } />
         </Routes>
     </BrowserRouter>
 );

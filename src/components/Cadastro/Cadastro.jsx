@@ -43,8 +43,8 @@ export const Cadastro = () => {
 
                     sessionStorage.setItem("@AuthFirebase:token", accessToken)
                     sessionStorage.setItem("@AuthFirebase:userId", uid)
-                    window.location.replace("/my-list")
-                    
+                    window.location.replace("/lista")
+
                 })
                 .catch((error) => {
                     const errorCode = error.code;
