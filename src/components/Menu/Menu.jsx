@@ -15,7 +15,6 @@ export const Menu = () => {
                 </div>
                 <div className="offcanvas-body">
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item">Criar lista</li>
                         <li className="list-group-item">Listas arquivadas</li>
                         <li className="list-group-item">Meu Perfil</li>
                         <li className="list-group-item">Sobre</li>
