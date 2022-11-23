@@ -48,8 +48,7 @@ export const Cadastro = () => {
                 })
                 .catch((error) => {
                     const errorCode = error.code;
-                    const errorMessage = error.message;
-                    setError(errorCode +' - '+ errorMessage)
+                    setError(errorCode)
                 });
             } else {
                 setError('Sua senha deve conter no min. 6 caracteres!')
