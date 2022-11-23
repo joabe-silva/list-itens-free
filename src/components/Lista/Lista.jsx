@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { getFirestore, collection, getDocs, setDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, setDoc, doc, query, orderBy } from "firebase/firestore";
 import { app } from "../../services/firabase-config";
 import { uuidv4 } from '@firebase/util';
 
@@ -12,10 +12,9 @@ export const Lista = () => {
     useEffect(() => {
         (async () => {
             const db = getFirestore(app)
-            const querySnapshot = await getDocs(collection(db, "list"));
-    
-            console.log(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-            setList(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+            const queryReq = query(collection(db, "list"), orderBy("descricao"));
+            const result = await getDocs(queryReq)
+            setList(result.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         })();
     }, [error]);
 
