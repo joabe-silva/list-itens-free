@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react';
-import { getFirestore, collection, getDocs, setDoc, doc, query, orderBy } from "firebase/firestore";
-import { app } from "../../services/firabase-config";
+import { Link } from 'react-router-dom';
+import { getFirestore, collection, getDocs, setDoc, doc, query, orderBy } from 'firebase/firestore';
+import { app } from '../../services/firabase-config';
 import { uuidv4 } from '@firebase/util';
 
 export const Lista = () => {
@@ -24,11 +25,24 @@ export const Lista = () => {
 
     async function cadastra() {
         if(descricao.length > 0) {
-            
+
             const db = getFirestore(app)
             await setDoc(doc(db, "list", uuidv4()), {
                 descricao: descricao,
                 check: false,
+                criador: sessionStorage.getItem("@AuthFirebase:userEmail"),
+                id_criador: sessionStorage.getItem("@AuthFirebase:userId"),
+                share: [
+                    {
+                        email: null
+                    },  
+                ],
+                item: [
+                    {
+                        descricao: null,
+                        check: false,
+                    },
+                ]
             });
 
             if(msm === 'Lista criada com sucesso!') {
@@ -55,7 +69,7 @@ export const Lista = () => {
                     }
                 </div>
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Minha lista..." onChange={ handleDescricao }/>
+                    <input type="text" className="form-control" placeholder="Nome da lista..." onChange={ handleDescricao }/>
                     <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={ cadastra }>
                         Adicionar
                     </button>
@@ -64,12 +78,14 @@ export const Lista = () => {
             <ul className="list-group">
             {
                 list.map(l => (
-                    <div className="list-group-item list-group-item-action" key={ l.id }>
-                        <div className="d-flex w-100 justify-content-between">
-                            <h5 className="mb-1">{ l.descricao }</h5>
+                    <Link to={`/lista/${ l.id }`} key={ l.id } style={{ textDecoration: 'none' }}>
+                        <div className="list-group-item list-group-item-action" >
+                            <div className="d-flex w-100 justify-content-between">
+                                <h5 className="mb-1">{ l.descricao }</h5>
+                            </div>
+                            <small className="text-muted">joabesilva@gmail.com</small>
                         </div>
-                        <small className="text-muted">joabesilva@gmail.com</small>
-                    </div>
+                    </Link>
                 ))
             }  
             </ul> 

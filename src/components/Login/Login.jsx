@@ -23,10 +23,11 @@ export const Login = () => {
             signInWithEmailAndPassword(auth, email, senha)
             .then((userCredential) => {
                 // Signed in 
-                const { accessToken, uid } = userCredential.user;
+                const { accessToken, uid, email } = userCredential.user;
 
                 sessionStorage.setItem("@AuthFirebase:token", accessToken)
                 sessionStorage.setItem("@AuthFirebase:userId", uid)
+                sessionStorage.setItem("@AuthFirebase:userEmail", email)
                 window.location.replace("/lista")
                 
             })
