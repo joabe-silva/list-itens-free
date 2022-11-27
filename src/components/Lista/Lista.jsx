@@ -7,7 +7,7 @@ export const Lista = () => {
 
     const [list, setList] = useState([]);
     const [descricao, setDescricao] = useState({});
-    const [error, setError] = useState(null);
+    const [msm, setMsm] = useState(null);
 
     useEffect(() => {
         (async () => {
@@ -16,7 +16,7 @@ export const Lista = () => {
             const result = await getDocs(queryReq)
             setList(result.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         })();
-    }, [error]);
+    }, [msm]);
 
     const handleDescricao = (event) => {
         setDescricao(event.target.value)
@@ -30,10 +30,15 @@ export const Lista = () => {
                 descricao: descricao,
                 check: false,
             });
-            setError('Lista criada com sucesso!')
+
+            if(msm === 'Lista criada com sucesso!') {
+                setMsm('Lista criada com sucesso!!')
+            } else {
+                setMsm('Lista criada com sucesso!')
+            } 
             
         } else {
-            setError('Insira um titulo para a lista!')
+            setMsm('Insira um titulo para a lista!')
         } 
     }
     
@@ -42,9 +47,9 @@ export const Lista = () => {
             <div className="col">
                 <div className="row">
                     {
-                        error !== null ? (
+                        msm !== null ? (
                             <div className="alert alert-warning" role="alert" style={{ width: '25rem' }}>
-                                { error }
+                                { msm }
                             </div>
                         ) : null 
                     }
