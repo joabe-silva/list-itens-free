@@ -8,8 +8,8 @@ export const Item = () => {
 
     const { id } = useParams();
     const [item, setItem] = useState([]);
-    //const [descricao, setDescricao] = useState({});
-    //const [msm, setMsm] = useState(null);
+    const [descricao, setDescricao] = useState({});
+    const [msm, setMsm] = useState(null);
 
     useEffect(() => {
         (async () => {
@@ -18,17 +18,64 @@ export const Item = () => {
             const result = await getDoc(queryReq)
 
             setItem(result.data().item)
-            console.log(result.data().item)
         })();
-    }, [id]);
+    }, [id, msm]);
+
+    const handleDescricao = (event) => {
+        setDescricao(event.target.value)
+    }
+
+    async function cadastra() {
+        if(descricao.length > 0) {
+
+            //const db = getFirestore(app)
+            
+            if(msm === 'Item criado com sucesso!') {
+                setMsm('Item criado com sucesso!!')
+            } else {
+                setMsm('Item criado com sucesso!')
+            } 
+            
+        } else {
+            setMsm('Insira um nome para o item!')
+        } 
+    }
     
     return(
         <div className="container-fluid mt-2">
+            <div className="col">
+                <div className="row">
+                    {
+                        msm !== null ? (
+                            <div className="alert alert-warning" role="alert" style={{ width: '25rem' }}>
+                                { msm }
+                            </div>
+                        ) : null 
+                    }
+                </div>
+                <div className="input-group mb-3">
+                    <input type="text" className="form-control" placeholder="Item..." onChange={ handleDescricao }/>
+                    <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={ cadastra }>
+                        Adicionar
+                    </button>
+                    <div className="dropdown ps-2">
+                        <button className="btn btn-outline-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span className="material-symbols-outlined">
+                                more_vert
+                            </span>
+                        </button>
+                        <ul className="dropdown-menu">
+                            <li><a className="dropdown-item" href="/#">Compartilhar</a></li>
+                            <li><a className="dropdown-item" href="/#">Excluir lista</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <ul className="list-group">
             {
                 item.map(i => (
                     <li className="list-group-item" key={ 0 + 1 }>
-                        <input className="form-check-input me-2" type="checkbox" value="" id="firstCheckbox"/>
+                        <input className="form-check-input me-2" type="checkbox" id="firstCheckbox" defaultChecked={ i.check } />
                         <label className="form-check-label" htmlFor="firstCheckbox">{ i.descricao }</label>
                     </li>
                 ))

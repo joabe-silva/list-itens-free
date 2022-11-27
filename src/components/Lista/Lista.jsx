@@ -83,7 +83,7 @@ export const Lista = () => {
                             <div className="d-flex w-100 justify-content-between">
                                 <h5 className="mb-1">{ l.descricao }</h5>
                             </div>
-                            <small className="text-muted">joabesilva@gmail.com</small>
+                            <small className="text-muted">{ l.criador }</small>
                         </div>
                     </Link>
                 ))
