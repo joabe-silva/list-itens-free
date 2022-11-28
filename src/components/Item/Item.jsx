@@ -26,6 +26,17 @@ export const Item = () => {
         setDescricao(event.target.value)
     }
 
+    async function handleCheckItem(p) {
+        console.log(p)
+
+        const db = getFirestore(app)
+        const queryReq = doc(db, "list", id);
+
+        await updateDoc(queryReq, {
+            `item[${p}]check`: true, 
+        });
+    }
+
     async function cadastra() {
         if(descricao.length > 0) {
 
@@ -87,7 +98,7 @@ export const Item = () => {
             {
                 item.map(i => (
                     <li className="list-group-item" key={ count++ }>
-                        <input className="form-check-input me-2" type="checkbox" id="firstCheckbox" defaultChecked={ i.check } />
+                        <input className="form-check-input me-2" type="checkbox" id="firstCheckbox" defaultChecked={ i.check } onClick={()=> handleCheckItem(count-1) } />
                         <label className="form-check-label" htmlFor="firstCheckbox">{ i.descricao }</label>
                     </li>
                 ))
