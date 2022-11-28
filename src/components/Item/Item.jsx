@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { app } from "../../services/firabase-config";
 import { useParams } from 'react-router-dom';
-import { getFirestore, getDoc, doc /*, collection, getDocs, setDoc, docs, query, where*/ } from "firebase/firestore";
+import { getFirestore, getDoc, doc, updateDoc, arrayUnion /*, collection, getDocs, setDoc, docs, query, where*/ } from "firebase/firestore";
 
 
 export const Item = () => {
@@ -10,6 +10,7 @@ export const Item = () => {
     const [item, setItem] = useState([]);
     const [descricao, setDescricao] = useState({});
     const [msm, setMsm] = useState(null);
+    var count = 0;
 
     useEffect(() => {
         (async () => {
@@ -28,7 +29,17 @@ export const Item = () => {
     async function cadastra() {
         if(descricao.length > 0) {
 
-            //const db = getFirestore(app)
+            const db = getFirestore(app)
+            const queryReq = doc(db, "list", id);
+            
+            const newItem = {
+                descricao: descricao,
+                check: false
+            }
+
+            await updateDoc(queryReq, {
+                item: arrayUnion(newItem)
+            });
             
             if(msm === 'Item criado com sucesso!') {
                 setMsm('Item criado com sucesso!!')
@@ -66,6 +77,7 @@ export const Item = () => {
                         </button>
                         <ul className="dropdown-menu">
                             <li><a className="dropdown-item" href="/#">Compartilhar</a></li>
+                            <li><a className="dropdown-item" href="/#">Arquivar lista</a></li>
                             <li><a className="dropdown-item" href="/#">Excluir lista</a></li>
                         </ul>
                     </div>
@@ -74,7 +86,7 @@ export const Item = () => {
             <ul className="list-group">
             {
                 item.map(i => (
-                    <li className="list-group-item" key={ 0 + 1 }>
+                    <li className="list-group-item" key={ count++ }>
                         <input className="form-check-input me-2" type="checkbox" id="firstCheckbox" defaultChecked={ i.check } />
                         <label className="form-check-label" htmlFor="firstCheckbox">{ i.descricao }</label>
                     </li>
