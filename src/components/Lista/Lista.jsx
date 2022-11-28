@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getFirestore, collection, getDocs, setDoc, doc, query, orderBy } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, setDoc, doc, query, where } from 'firebase/firestore';
 import { app } from '../../services/firabase-config';
 import { uuidv4 } from '@firebase/util';
 
@@ -13,7 +13,7 @@ export const Lista = () => {
     useEffect(() => {
         (async () => {
             const db = getFirestore(app)
-            const queryReq = query(collection(db, "list"), orderBy("descricao"));
+            const queryReq = query(collection(db, "list"), where("id_criador", "==", sessionStorage.getItem("@AuthFirebase:userId")));
             const result = await getDocs(queryReq)
             setList(result.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         })();
@@ -32,17 +32,7 @@ export const Lista = () => {
                 check: false,
                 criador: sessionStorage.getItem("@AuthFirebase:userEmail"),
                 id_criador: sessionStorage.getItem("@AuthFirebase:userId"),
-                share: [
-                    {
-                        email: null
-                    },  
-                ],
-                item: [
-                    {
-                        descricao: null,
-                        check: false,
-                    },
-                ]
+                share: [],
             });
 
             if(msm === 'Lista criada com sucesso!') {

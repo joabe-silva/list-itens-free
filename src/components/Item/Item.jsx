@@ -33,7 +33,7 @@ export const Item = () => {
         const queryReq = doc(db, "list", id);
 
         await updateDoc(queryReq, {
-            `item[${p}]check`: true, 
+            //
         });
     }
 
