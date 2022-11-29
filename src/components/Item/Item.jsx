@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getFirestore, collection, getDocs, setDoc, doc, query, where } from 'firebase/firestore';
+import { getFirestore, getDocs, setDoc, collection, doc, query, where, updateDoc } from 'firebase/firestore';
 import { app } from '../../services/firabase-config';
 import { uuidv4 } from '@firebase/util';
 
@@ -10,7 +10,6 @@ export const Item = () => {
     const [item, setItem] = useState([]);
     const [descricao, setDescricao] = useState({});
     const [msm, setMsm] = useState(null);
-    var count = 0;
 
     useEffect(() => {
         (async () => {
@@ -26,8 +25,21 @@ export const Item = () => {
         setDescricao(event.target.value)
     }
 
-    async function handleCheckItem(p) {
-        //
+    async function handleCheckItem(item) {
+
+        console.log(item)
+
+        const db = getFirestore(app)
+
+        if(item.check === false) {
+            await updateDoc(doc(db, "list_item", item.id), {
+                check: true
+            });
+        } else {
+            await updateDoc(doc(db, "list_item", item.id), {
+                check: false
+            });
+        }
     }
 
     async function cadastra() {
@@ -84,10 +96,10 @@ export const Item = () => {
             </div>
             <ul className="list-group">
             {
-                item.map(i => (
-                    <li className="list-group-item" key={ count++ }>
-                        <input className="form-check-input me-2" type="checkbox" id="firstCheckbox" defaultChecked={ i.check } onClick={()=> handleCheckItem(count-1) } />
-                        <label className="form-check-label" htmlFor="firstCheckbox">{ i.descricao }</label>
+                item.map(item => (
+                    <li className="list-group-item" key={ item.id }>
+                        <input className="form-check-input me-2" type="checkbox" id="firstCheckbox" defaultChecked={ item.check } onClick={()=> handleCheckItem(item) } />
+                        <label className="form-check-label" htmlFor="firstCheckbox">{ item.descricao }</label>
                     </li>
                 ))
             }  
