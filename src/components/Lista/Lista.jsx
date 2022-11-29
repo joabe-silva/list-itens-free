@@ -13,7 +13,7 @@ export const Lista = () => {
     useEffect(() => {
         (async () => {
             const db = getFirestore(app)
-            const queryReq = query(collection(db, "list"), where("id_criador", "==", sessionStorage.getItem("@AuthFirebase:userId")));
+            const queryReq = query(collection(db, "list"), where("share", "array-contains", sessionStorage.getItem("@AuthFirebase:userEmail")));
             const result = await getDocs(queryReq)
             setList(result.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         })();
@@ -31,8 +31,9 @@ export const Lista = () => {
                 descricao: descricao,
                 check: false,
                 criador: sessionStorage.getItem("@AuthFirebase:userEmail"),
-                id_criador: sessionStorage.getItem("@AuthFirebase:userId"),
-                share: [],
+                share: [
+                    sessionStorage.getItem("@AuthFirebase:userEmail")
+                ],
             });
 
             if(msm === 'Lista criada com sucesso!') {
