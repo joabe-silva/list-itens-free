@@ -39,6 +39,14 @@ export const Item = () => {
         }
     }
 
+    async function arquivar(id) {
+        const db = getFirestore(app)
+        await updateDoc(doc(db, "list", id), {
+            check: true
+        });
+        
+    }
+
     async function cadastra() {
         if(descricao.length > 0) {
 
@@ -87,7 +95,7 @@ export const Item = () => {
                         <ul className="dropdown-menu">
                             
                             <li><a className="dropdown-item" href={`/lista/${id}/editar`}>Editar</a></li>
-                            <li><a className="dropdown-item" href="/#">Arquivar</a></li>
+                            <li><a className="dropdown-item" href="/lista" onClick={() => arquivar(id)}>Arquivar</a></li>
                             <li><a className="dropdown-item" href={`/lista/${id}/compartilhar`}>Compartilhar</a></li>
                             <li><hr className="dropdown-divider"/></li>
                             <li><a className="dropdown-item" href="/#">Excluir</a></li>

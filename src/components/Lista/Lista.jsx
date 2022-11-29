@@ -14,7 +14,7 @@ export const Lista = () => {
         (async () => {
             const db = getFirestore(app)
             const result = await getDocs(
-                query(collection(db, "list"), where("share", "array-contains", sessionStorage.getItem("@AuthFirebase:userEmail")))
+                query(collection(db, "list"), where("share", "array-contains", sessionStorage.getItem("@AuthFirebase:userEmail")), where("check", "==", false))
             )
             setList(result.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         })();
