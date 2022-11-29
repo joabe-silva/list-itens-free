@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import { Link } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../services/firabase-config";
-import './Cadastro.css';
+import './LoginCadastro.css';
 
 export const Cadastro = () => {
 

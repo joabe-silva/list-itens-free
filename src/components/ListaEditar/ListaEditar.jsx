@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getFirestore, getDoc, doc, updateDoc } from 'firebase/firestore';
 import { app } from '../../services/firabase-config';
 
-export const Editar = () => {
+export const ListaEditar = () => {
 
     const { id } = useParams();
     const [descricao, setDescricao] = useState();
