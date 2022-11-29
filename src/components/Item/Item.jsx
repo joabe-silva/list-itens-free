@@ -85,7 +85,7 @@ export const Item = () => {
                         </button>
                         <ul className="dropdown-menu">
                             
-                            <li><a className="dropdown-item" href={`/editar/${id}`}>Editar</a></li>
+                            <li><a className="dropdown-item" href={`/lista/${id}/editar`}>Editar</a></li>
                             <li><a className="dropdown-item" href="/#">Arquivar</a></li>
                             <li><a className="dropdown-item" href="/#">Compartilhar</a></li>
                             <li><hr className="dropdown-divider"/></li>

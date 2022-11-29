@@ -38,7 +38,6 @@ export const ListaEditar = () => {
                     Atualizar
                 </button>
             </div>
-            {descricao}
         </div>
     )
     

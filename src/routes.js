@@ -11,12 +11,12 @@ const RoutesApi = () => (
     <BrowserRouter>
         { window.location.pathname === "/" ? null : <Header /> }
         <Routes>
-            <Route path='/'           element={ <Login/> } />
             <Route path='*'           element={<h1>Not Found</h1>} />
+            <Route path='/'           element={ <Login/> } />
             <Route path='/cadastro'   element={ <Cadastro/> } />
             <Route path='/lista'      element={ <Lista/> } />
             <Route path='/lista/:id'  element={ <Item/> } />
-            <Route path='/editar/:id' element={ <ListaEditar/> } />
+            <Route path='/lista/:id/editar' element={ <ListaEditar/> } />
         </Routes>
     </BrowserRouter>
 );
