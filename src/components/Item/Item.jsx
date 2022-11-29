@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getFirestore, getDocs, setDoc, collection, doc, query, where, updateDoc } from 'firebase/firestore';
+import { getFirestore, getDocs, setDoc, collection, doc, query, where, updateDoc, deleteDoc } from 'firebase/firestore';
 import { app } from '../../services/firabase-config';
 import { uuidv4 } from '@firebase/util';
 
@@ -45,6 +45,26 @@ export const Item = () => {
             check: true
         });
         
+    }
+
+    async function removeItem(id) {
+        const db = getFirestore(app)
+        await deleteDoc(doc(db, "list_item", id))
+    }
+
+    async function remove(id) {
+        const db = getFirestore(app)
+        //Deleta lista
+        await deleteDoc(doc(db, "list", id));
+
+        const result = await getDocs(
+            query(collection(db, "list_item"), where("id_list", "==", id))    
+        )
+        //Deleta itens da lista
+        result.docs.map((doc) => (
+           removeItem(doc.id)
+        ))
+
     }
 
     async function cadastra() {
@@ -98,7 +118,7 @@ export const Item = () => {
                             <li><a className="dropdown-item" href="/lista" onClick={() => arquivar(id)}>Arquivar</a></li>
                             <li><a className="dropdown-item" href={`/lista/${id}/compartilhar`}>Compartilhar</a></li>
                             <li><hr className="dropdown-divider"/></li>
-                            <li><a className="dropdown-item" href="/#">Excluir</a></li>
+                            <li><a className="dropdown-item" href="/lista" onClick={() => remove(id)}>Excluir</a></li>
                         </ul>
                     </div>
                 </div>
