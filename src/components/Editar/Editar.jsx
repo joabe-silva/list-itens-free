@@ -1,14 +1,13 @@
 import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getFirestore, getDoc, setDoc, collection, doc, query, where, updateDoc } from 'firebase/firestore';
+import { getFirestore, getDoc, doc, updateDoc } from 'firebase/firestore';
 import { app } from '../../services/firabase-config';
 
 export const Editar = () => {
 
     const { id } = useParams();
     const [descricao, setDescricao] = useState();
-    const [msm, setMsm] = useState(null);
-
+    
     useEffect(() => {
         (async () => {
             const db = getFirestore(app)
@@ -17,7 +16,7 @@ export const Editar = () => {
             )
             setDescricao(result.data().descricao)
         })();
-    }, [id, msm]);
+    });
 
     const handleDescricao = (event) => {
         setDescricao(event.target.value)
