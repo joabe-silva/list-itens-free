@@ -16,7 +16,7 @@ export const Editar = () => {
             )
             setDescricao(result.data().descricao)
         })();
-    });
+    }, [id]);
 
     const handleDescricao = (event) => {
         setDescricao(event.target.value)
@@ -38,6 +38,7 @@ export const Editar = () => {
                     Atualizar
                 </button>
             </div>
+            {descricao}
         </div>
     )
     
