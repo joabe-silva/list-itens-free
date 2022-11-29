@@ -72,13 +72,14 @@ export const Item = () => {
                         ) : null 
                     }
                 </div>
+                <h3 className="mt-3">Itens da lista</h3>
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Item..." onChange={ handleDescricao } />
-                    <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={ cadastra }>
+                    <input type="text" className="form-control" placeholder="Descrição do item..." onChange={ handleDescricao } />
+                    <button className="btn btn-outline-primary" type="button" id="button-addon2" onClick={ cadastra } style={{ borderBottomRightRadius: '8px', borderStartEndRadius: '8px' }}>
                         Adicionar
                     </button>
                     <div className="dropdown ps-2">
-                        <button className="btn btn-outline-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button className="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ borderRadius: '8px' }}>
                             <span className="material-symbols-outlined">
                                 more_vert
                             </span>
@@ -87,7 +88,7 @@ export const Item = () => {
                             
                             <li><a className="dropdown-item" href={`/lista/${id}/editar`}>Editar</a></li>
                             <li><a className="dropdown-item" href="/#">Arquivar</a></li>
-                            <li><a className="dropdown-item" href="/#">Compartilhar</a></li>
+                            <li><a className="dropdown-item" href={`/lista/${id}/compartilhar`}>Compartilhar</a></li>
                             <li><hr className="dropdown-divider"/></li>
                             <li><a className="dropdown-item" href="/#">Excluir</a></li>
                         </ul>

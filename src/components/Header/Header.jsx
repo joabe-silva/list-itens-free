@@ -7,7 +7,7 @@ export const Header = () => {
             <div className="container-fluid">
                 <Menu />
                 <span className="navbar-brand mb-0 h1">
-                   <Link to="/lista" style={{ textDecoration: 'none', color: 'black' }}>My List</Link>
+                   <Link to="/lista" style={{ textDecoration: 'none', color: 'black' }}>List Itens</Link>
                 </span>
             </div>
         </nav>

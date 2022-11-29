@@ -6,6 +6,7 @@ import { Cadastro } from './components/LoginCadastro/LoginCadastro';
 import { Lista } from './components/Lista/Lista';
 import { Item } from './components/Item/Item';
 import { ListaEditar } from './components/ListaEditar/ListaEditar';
+import { ListaCompartilhar } from './components/ListaCompartilhar/ListaCompartilhar';
 
 const RoutesApi = () => (
     <BrowserRouter>
@@ -17,6 +18,7 @@ const RoutesApi = () => (
             <Route path='/lista'      element={ <Lista/> } />
             <Route path='/lista/:id'  element={ <Item/> } />
             <Route path='/lista/:id/editar' element={ <ListaEditar/> } />
+            <Route path='/lista/:id/compartilhar' element={ <ListaCompartilhar/> } />
         </Routes>
     </BrowserRouter>
 );

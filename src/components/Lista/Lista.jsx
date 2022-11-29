@@ -60,9 +60,10 @@ export const Lista = () => {
                         ) : null 
                     }
                 </div>
+                <h3 className="mt-3">Minhas listas</h3>
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Lista..." onChange={ handleDescricao }/>
-                    <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={ cadastra }>
+                    <input type="text" className="form-control" placeholder="Titulo da lista..." onChange={ handleDescricao }/>
+                    <button className="btn btn-outline-primary" type="button" id="button-addon2" onClick={ cadastra }>
                         Adicionar
                     </button>
                 </div>
