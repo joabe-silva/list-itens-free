@@ -13,8 +13,9 @@ export const Lista = () => {
     useEffect(() => {
         (async () => {
             const db = getFirestore(app)
-            const queryReq = query(collection(db, "list"), where("share", "array-contains", sessionStorage.getItem("@AuthFirebase:userEmail")));
-            const result = await getDocs(queryReq)
+            const result = await getDocs(
+                query(collection(db, "list"), where("share", "array-contains", sessionStorage.getItem("@AuthFirebase:userEmail")))
+            )
             setList(result.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         })();
     }, [msm]);

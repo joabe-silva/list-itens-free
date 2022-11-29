@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { app } from "../../services/firabase-config";
 import { useParams } from 'react-router-dom';
-import { getFirestore, getDoc, doc, updateDoc, arrayUnion /*, collection, getDocs, setDoc, docs, query, where*/ } from "firebase/firestore";
+import { getFirestore, getDocs, doc, updateDoc, arrayUnion, collection, /*getDocs, setDoc, docs,*/ query, where } from "firebase/firestore";
 
 
 export const Item = () => {
@@ -15,10 +15,10 @@ export const Item = () => {
     useEffect(() => {
         (async () => {
             const db = getFirestore(app)
-            const queryReq = doc(db, "list", id);
-            const result = await getDoc(queryReq)
-
-            setItem(result.data().item)
+            const result = await getDocs(
+                query(collection(db, "list_item"), where("id_list", "==", id))    
+            )
+            setItem(result.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         })();
     }, [id, msm]);
 
