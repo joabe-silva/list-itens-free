@@ -26,9 +26,6 @@ export const Item = () => {
     }
 
     async function handleCheckItem(item) {
-
-        console.log(item)
-
         const db = getFirestore(app)
 
         if(item.check === false) {
@@ -76,7 +73,7 @@ export const Item = () => {
                     }
                 </div>
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Item..." onChange={ handleDescricao }/>
+                    <input type="text" className="form-control" placeholder="Item..." onChange={ handleDescricao } />
                     <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={ cadastra }>
                         Adicionar
                     </button>
@@ -87,9 +84,12 @@ export const Item = () => {
                             </span>
                         </button>
                         <ul className="dropdown-menu">
+                            
+                            <li><a className="dropdown-item" href={`/editar/${id}`}>Editar</a></li>
+                            <li><a className="dropdown-item" href="/#">Arquivar</a></li>
                             <li><a className="dropdown-item" href="/#">Compartilhar</a></li>
-                            <li><a className="dropdown-item" href="/#">Arquivar lista</a></li>
-                            <li><a className="dropdown-item" href="/#">Excluir lista</a></li>
+                            <li><hr className="dropdown-divider"/></li>
+                            <li><a className="dropdown-item" href="/#">Excluir</a></li>
                         </ul>
                     </div>
                 </div>

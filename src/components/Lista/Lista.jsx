@@ -61,7 +61,7 @@ export const Lista = () => {
                     }
                 </div>
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Nome da lista..." onChange={ handleDescricao }/>
+                    <input type="text" className="form-control" placeholder="Lista..." onChange={ handleDescricao }/>
                     <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={ cadastra }>
                         Adicionar
                     </button>
