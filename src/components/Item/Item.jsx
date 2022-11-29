@@ -1,8 +1,8 @@
 import { React, useState, useEffect } from 'react';
-import { app } from "../../services/firabase-config";
 import { useParams } from 'react-router-dom';
-import { getFirestore, getDocs, doc, updateDoc, arrayUnion, collection, /*getDocs, setDoc, docs,*/ query, where } from "firebase/firestore";
-
+import { getFirestore, collection, getDocs, setDoc, doc, query, where } from 'firebase/firestore';
+import { app } from '../../services/firabase-config';
+import { uuidv4 } from '@firebase/util';
 
 export const Item = () => {
 
@@ -27,39 +27,27 @@ export const Item = () => {
     }
 
     async function handleCheckItem(p) {
-        console.log(p)
-
-        const db = getFirestore(app)
-        const queryReq = doc(db, "list", id);
-
-        await updateDoc(queryReq, {
-            //
-        });
+        //
     }
 
     async function cadastra() {
         if(descricao.length > 0) {
 
             const db = getFirestore(app)
-            const queryReq = doc(db, "list", id);
-            
-            const newItem = {
+            await setDoc(doc(db, "list_item", uuidv4()), {
                 descricao: descricao,
-                check: false
-            }
-
-            await updateDoc(queryReq, {
-                item: arrayUnion(newItem)
+                check: false,
+                id_list: id,
             });
-            
-            if(msm === 'Item criado com sucesso!') {
-                setMsm('Item criado com sucesso!!')
+
+            if(msm === 'Lista criada com sucesso!') {
+                setMsm('Lista criada com sucesso!!')
             } else {
-                setMsm('Item criado com sucesso!')
+                setMsm('Lista criada com sucesso!')
             } 
             
         } else {
-            setMsm('Insira um nome para o item!')
+            setMsm('Insira um titulo para a lista!')
         } 
     }
     
