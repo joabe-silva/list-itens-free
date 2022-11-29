@@ -59,12 +59,12 @@ export const Item = () => {
 
         const result = await getDocs(
             query(collection(db, "list_item"), where("id_list", "==", id))    
-        )
+        );
         //Deleta itens da lista
         result.docs.map((doc) => (
-           removeItem(doc.id)
-        ))
-
+            removeItem(doc.id)
+        ));
+        window.location.replace("/lista")
     }
 
     async function cadastra() {
@@ -113,12 +113,11 @@ export const Item = () => {
                             </span>
                         </button>
                         <ul className="dropdown-menu">
-                            
                             <li><a className="dropdown-item" href={`/lista/${id}/editar`}>Editar</a></li>
                             <li><a className="dropdown-item" href="/lista" onClick={() => arquivar(id)}>Arquivar</a></li>
                             <li><a className="dropdown-item" href={`/lista/${id}/compartilhar`}>Compartilhar</a></li>
                             <li><hr className="dropdown-divider"/></li>
-                            <li><a className="dropdown-item" href="/lista" onClick={() => remove(id)}>Excluir</a></li>
+                            <li className="dropdown-item" onClick={() => remove(id)}>Excluir</li>
                         </ul>
                     </div>
                 </div>
