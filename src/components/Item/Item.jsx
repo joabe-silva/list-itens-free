@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getFirestore, getDocs, setDoc, collection, doc, query, where, updateDoc, deleteDoc } from 'firebase/firestore';
+import { getFirestore, getDocs, setDoc, collection, doc, query, where, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { app } from '../../services/firabase-config';
 import { uuidv4 } from '@firebase/util';
 
@@ -41,10 +41,21 @@ export const Item = () => {
 
     async function arquivar(id) {
         const db = getFirestore(app)
-        await updateDoc(doc(db, "list", id), {
-            check: true
-        });
-        
+
+        const result = await getDoc(
+            doc(db, "list", id) 
+        )
+
+        if(result.data().check === false) {
+            await updateDoc(doc(db, "list", id), {
+                check: true
+            });
+        } else {
+            await updateDoc(doc(db, "list", id), {
+                check: false
+            });
+        }
+        window.location.replace("/lista")
     }
 
     async function removeItem(id) {
@@ -114,7 +125,7 @@ export const Item = () => {
                         </button>
                         <ul className="dropdown-menu">
                             <li><a className="dropdown-item" href={`/lista/${id}/editar`}>Editar</a></li>
-                            <li><a className="dropdown-item" href="/lista" onClick={() => arquivar(id)}>Arquivar</a></li>
+                            <li className="dropdown-item" onClick={() => arquivar(id)}>Arquivar</li>
                             <li><a className="dropdown-item" href={`/lista/${id}/compartilhar`}>Compartilhar</a></li>
                             <li><hr className="dropdown-divider"/></li>
                             <li className="dropdown-item" onClick={() => remove(id)}>Excluir</li>

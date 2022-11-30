@@ -7,18 +7,20 @@ import { Lista } from './components/Lista/Lista';
 import { Item } from './components/Item/Item';
 import { ListaEditar } from './components/ListaEditar/ListaEditar';
 import { ListaCompartilhar } from './components/ListaCompartilhar/ListaCompartilhar';
+import { ListaArquivada } from './components/ListaArquivada/ListaArquivada';
 
 const RoutesApi = () => (
     <BrowserRouter>
         { window.location.pathname === "/" ? null : <Header /> }
         <Routes>
-            <Route path='*'           element={<h1>Not Found</h1>} />
-            <Route path='/'           element={ <Login/> } />
-            <Route path='/cadastro'   element={ <Cadastro/> } />
-            <Route path='/lista'      element={ <Lista/> } />
-            <Route path='/lista/:id'  element={ <Item/> } />
-            <Route path='/lista/:id/editar' element={ <ListaEditar/> } />
+            <Route path='*'                       element={<h1>Not Found</h1>} />
+            <Route path='/'                       element={ <Login/> } />
+            <Route path='/cadastro'               element={ <Cadastro/> } />
+            <Route path='/lista'                  element={ <Lista/> } />
+            <Route path='/lista/:id'              element={ <Item/> } />
+            <Route path='/lista/:id/editar'       element={ <ListaEditar/> } />
             <Route path='/lista/:id/compartilhar' element={ <ListaCompartilhar/> } />
+            <Route path='/lista/arquivada'        element={ <ListaArquivada/> } />
         </Routes>
     </BrowserRouter>
 );
