@@ -9,6 +9,7 @@ import { ListaEditar } from './components/ListaEditar/ListaEditar';
 import { ListaCompartilhar } from './components/ListaCompartilhar/ListaCompartilhar';
 import { ListaArquivada } from './components/ListaArquivada/ListaArquivada';
 import { ItemEditar } from './components/ItemEditar/ItemEditar';
+import { Perfil } from './components/Perfil/Perfil';
 
 const RoutesApi = () => (
     <BrowserRouter>
@@ -23,6 +24,7 @@ const RoutesApi = () => (
             <Route path='/lista/:id/compartilhar'       element={ <ListaCompartilhar/> } />
             <Route path='/lista/arquivada'              element={ <ListaArquivada/> } />
             <Route path='/lista/:id/item/:id_it/editar' element={ <ItemEditar/> } />
+            <Route path='/perfil'                       element={ <Perfil/> } />
         </Routes>
     </BrowserRouter>
 );
