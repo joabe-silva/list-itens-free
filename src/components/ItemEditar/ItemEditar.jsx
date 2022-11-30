@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getFirestore, getDoc, doc, updateDoc } from 'firebase/firestore';
+import { getFirestore, getDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { app } from '../../services/firabase-config';
 
 export const ItemEditar = () => {
@@ -22,6 +22,12 @@ export const ItemEditar = () => {
         setDescricao(event.target.value)
     }
 
+    async function remove() {
+        const db = getFirestore(app)
+        await deleteDoc(doc(db, "list_item", id_it))
+        window.location.replace(`/lista/${id}`)
+    }
+
     async function atualizar() {
         const db = getFirestore(app)
         await updateDoc(doc(db, "list_item", id_it), {
@@ -38,7 +44,7 @@ export const ItemEditar = () => {
                 <button className="btn btn-outline-primary" type="button" id="button-addon2" onClick={ atualizar } style={{ borderBottomRightRadius: '8px', borderStartEndRadius: '8px' }} >
                     Atualizar
                 </button>
-                <button className="btn btn-outline-primary btn-sm ms-2" type="button" style={{ borderRadius: '8px' }}>
+                <button className="btn btn-outline-primary btn-sm ms-2" type="button" onClick={ remove } style={{ borderRadius: '8px' }}>
                     <span className="material-symbols-outlined">
                         delete
                     </span>
