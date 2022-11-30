@@ -88,14 +88,14 @@ export const Item = () => {
                 id_list: id,
             });
 
-            if(msm === 'Lista criada com sucesso!') {
-                setMsm('Lista criada com sucesso!!')
+            if(msm === 'Item criado com sucesso!') {
+                setMsm('Item criado com sucesso!!')
             } else {
-                setMsm('Lista criada com sucesso!')
+                setMsm('Item criado com sucesso!')
             } 
             
         } else {
-            setMsm('Insira um titulo para a lista!')
+            setMsm('Insira uma descrição para o item!')
         } 
     }
     
@@ -124,9 +124,9 @@ export const Item = () => {
                             </span>
                         </button>
                         <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href={`/lista/${id}/editar`}>Editar</a></li>
+                            <li><a className="dropdown-item" href={`/lista/${ id }/editar`}>Editar</a></li>
                             <li className="dropdown-item" onClick={() => arquivar(id)}>Arquivar</li>
-                            <li><a className="dropdown-item" href={`/lista/${id}/compartilhar`}>Compartilhar</a></li>
+                            <li><a className="dropdown-item" href={`/lista/${ id }/compartilhar`}>Compartilhar</a></li>
                             <li><hr className="dropdown-divider"/></li>
                             <li className="dropdown-item" onClick={() => remove(id)}>Excluir</li>
                         </ul>
@@ -137,8 +137,12 @@ export const Item = () => {
             {
                 item.map(item => (
                     <li className="list-group-item" key={ item.id }>
-                        <input className="form-check-input me-2" type="checkbox" id="firstCheckbox" defaultChecked={ item.check } onClick={()=> handleCheckItem(item) } />
-                        <label className="form-check-label" htmlFor="firstCheckbox">{ item.descricao }</label>
+                        <input className="form-check-input me-4" type="checkbox" id="firstCheckbox" defaultChecked={ item.check } onClick={()=> handleCheckItem(item) } />
+                        <label className="form-check-label" htmlFor="firstCheckbox">
+                            <a href={`/lista/${ id }/item/${ item.id }/editar`} style={{ textDecoration: 'none', color: '#000' }}>
+                                { item.descricao }
+                            </a>
+                        </label>
                     </li>
                 ))
             }  
