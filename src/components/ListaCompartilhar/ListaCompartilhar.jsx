@@ -8,6 +8,7 @@ export const ListaCompartilhar = () => {
     const { id } = useParams();
     const [email, setEmail] = useState({});
     const [share, setShare] = useState([]);
+    const [lista, setLista] = useState({});
     const [msm, setMsm] = useState(null);
     let count = 0;
     
@@ -18,6 +19,7 @@ export const ListaCompartilhar = () => {
                 doc(db, "list", id) 
             )
             setShare(result.data().share)
+            setLista(result.data())
         })();
     }, [msm, id]);
 
@@ -80,7 +82,7 @@ export const ListaCompartilhar = () => {
                 </div>
                 <ul className="list-group">
                 {
-                    share.filter(email => email !== sessionStorage.getItem("@AuthFirebase:userEmail"))
+                    share.filter(email => email !== sessionStorage.getItem("@AuthFirebase:userEmail") && email !== lista.criador)
                          .map(email => (
                             <li className="list-group-item d-flex justify-content-between align-items-center" key={ count++ }>
                                 { email }
