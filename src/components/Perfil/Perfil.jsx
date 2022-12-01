@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { getAuth, updatePassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, updatePassword, deleteUser, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../services/firabase-config";
 
 export const Perfil = () => {
@@ -15,7 +15,23 @@ export const Perfil = () => {
         setSenhaNova(event.target.value)
     }
 
-    const atualizar = () => {
+    const excluirUsuario = () => {
+        const auth = getAuth(app);
+        const user = auth.currentUser;
+        
+        if(user){
+            deleteUser(user).then(() => {
+                window.location.replace("/")
+            }).catch((error) => {
+                setMsm(error)
+            });
+        } else {
+            setMsm('Não foi possivel excluir sua conta no momento. Tente novamente depois de alguns minutos.') 
+        }
+        
+    }
+
+    const atualizarSenha = () => {
         const auth = getAuth(app);
         const user = auth.currentUser;
 
@@ -74,8 +90,8 @@ export const Perfil = () => {
                                 <label htmlFor="senhaNova" className="form-label">Senha nova</label>
                                 <input type="password" className="form-control" id="senhaNova" placeholder="xxxx" onChange={ handleSenhaNova } />
                             </div>
-                            <button className="btn btn-primary me-2 mt-2" onClick={ atualizar }>Salvar</button>
-                            <button className="btn btn-secondary mt-2">Excluir Conta</button>
+                            <button className="btn btn-primary me-2 mt-2" onClick={ atualizarSenha }>Salvar</button>
+                            <button className="btn btn-secondary mt-2" onClick={ excluirUsuario }>Excluir Conta</button>
                         </div>
                     </div>
                 </div>
