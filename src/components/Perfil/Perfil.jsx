@@ -1,5 +1,6 @@
-import { React, useState } from 'react';
+import { React, useState } from "react";
 import { getAuth, updatePassword, deleteUser, signInWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, deleteDoc, collection, where, query, getDocs } from "firebase/firestore";
 import { app } from "../../services/firabase-config";
 
 export const Perfil = () => {
@@ -15,16 +16,55 @@ export const Perfil = () => {
         setSenhaNova(event.target.value)
     }
 
+    async function deletaListas(id) {
+        const db = getFirestore(app)
+        await deleteDoc(doc(db, "list", id))
+        window.location.replace("/")
+    }
+
+    async function deletaItens(id) {
+        const db = getFirestore(app)
+        await deleteDoc(doc(db, "list_item", id))
+    }
+
+    async function getItensLista(id) {
+        const db = getFirestore(app)
+        //Indentifica itens da lista
+        const result = await getDocs(
+            query(collection(db, "list_item"), where("id_list", "==", id))    
+        );
+        //Deleta itens da lista
+        result.docs.map((doc) => (
+            deletaItens(doc.id)
+        ));
+        //Deleta lista 
+        deletaListas(id)
+    }
+
+    async function deletaListasItens() {
+        const db = getFirestore(app)
+        //Indentifica listas que o usuario criou
+        const result = await getDocs(
+            query(collection(db, "list"), where("criador", "==", sessionStorage.getItem("@AuthFirebase:userEmail")))    
+        );
+        //Deleta lista e itens da lista
+        result.docs.map((doc) => ( 
+            getItensLista(doc.id)
+        ))
+    }
+
     const excluirUsuario = () => {
-        const auth = getAuth(app);
+        const auth = getAuth();
         const user = auth.currentUser;
         
         if(user){
+
             deleteUser(user).then(() => {
-                window.location.replace("/")
+                deletaListasItens()
             }).catch((error) => {
                 setMsm(error)
             });
+            
         } else {
             setMsm('Não foi possivel excluir sua conta no momento. Tente novamente depois de alguns minutos.') 
         }
