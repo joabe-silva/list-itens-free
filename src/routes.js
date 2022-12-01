@@ -10,25 +10,6 @@ import { ListaArquivada } from './components/ListaArquivada/ListaArquivada';
 import { ItemEditar } from './components/ItemEditar/ItemEditar';
 import { Perfil } from './components/Perfil/Perfil';
 
-/*
-function isAuthenticated() {
-    if(sessionStorage.getItem("@AuthFirebase:token")) {
-        return true;
-    }
-    return false;
-}
-
-const CheckRoute = ({ admin, children }) => {
-
-
-    // seu código para autenticação e checar se o usuário pode usar essa rota
-    const user = { admin: false }
-
-    return (!admin || (admin && user.admin)) ? children : <Redirect to="/login"/>
-
-}
-*/
-
 const RoutesApi = () => (
     <BrowserRouter>
         { window.location.pathname === "/" ? null : <Header /> }
