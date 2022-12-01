@@ -1,4 +1,18 @@
+import { getAuth, signOut } from "firebase/auth";
+
 export const Menu = () => {
+
+    const logoff = () => {
+        const auth = getAuth();
+        signOut(auth).then(() => {
+
+            sessionStorage.clear()
+            window.location.replace("/")
+            
+        }).catch((error) => {
+            console.log(error)
+        }); 
+    }
 
     return(
         <>    
@@ -18,7 +32,7 @@ export const Menu = () => {
                         <li className="list-group-item"><a href="/lista/arquivada" style={{ textDecoration: 'none', color: '#000' }}>Listas arquivadas</a></li>
                         <li className="list-group-item"><a href="/perfil" style={{ textDecoration: 'none', color: '#000' }}>Meu Perfil</a></li>
                         <li className="list-group-item">Sobre</li>
-                        <li className="list-group-item">Sair</li>
+                        <li className="list-group-item" onClick={ logoff }>Sair</li>
                     </ul>
                 </div>
             </div>
